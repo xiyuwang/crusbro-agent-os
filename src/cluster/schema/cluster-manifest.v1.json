@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://crusbro.dev/schemas/cluster-manifest.v1.json",
+  "title": "ClusterManifest v1",
+  "type": "object",
+  "required": ["schema_version", "members"],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "members": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["agent_key", "role"],
+        "properties": {
+          "agent_key": { "type": "string", "minLength": 1 },
+          "role": { "type": "string", "minLength": 1 },
+          "catalog_ref": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "routing": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "intents"],
+        "properties": {
+          "from": { "type": "string", "minLength": 1 },
+          "to": { "type": "string", "minLength": 1 },
+          "intents": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "invariants": {
+      "type": "object",
+      "properties": {
+        "zero_tool_turn_forbidden": { "type": "boolean" },
+        "contract_notify_required": {
+          "type": "boolean",
+          "description": "Deprecated. Notify enforcement is driven by agent catalog notify_emit and contract.next_notifies."
+        },
+        "min_tool_ends": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["role", "min"],
+            "properties": {
+              "role": { "type": "string" },
+              "min": { "type": "integer", "minimum": 0 }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "concurrency": {
+      "type": "object",
+      "properties": {
+        "max_active_sessions_per_scope": { "type": "integer", "minimum": 1 },
+        "scope_keys": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "notify": {
+      "type": "object",
+      "properties": {
+        "envelope_version": { "type": "string", "default": "n1" },
+        "standard_tool": { "type": "string", "default": "agent.notify" }
+      },
+      "additionalProperties": false
+    },
+    "finalize_when_idle": { "type": "object" },
+    "coordinator": { "type": "object" },
+    "hints": { "type": "object" }
+  }
+}
