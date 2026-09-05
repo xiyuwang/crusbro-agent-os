@@ -41,3 +41,7 @@ test("executeNotify requires bound host handler", async () => {
   assert.equal(r.status, 200);
   assert.equal(r.body.ok, true);
 });
+
+test("require e2b works under CJS (chalk overridden to 4.x)", () => {
+  assert.ok(require("e2b"));
+});

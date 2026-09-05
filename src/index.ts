@@ -44,6 +44,6 @@ export type {
   HitlAdapter,
 } from "./harness/types";
 export { createHttpCatalogTool } from "./tools/http-tool";
-export { createJsCatalogTool, loadJsHandlerModule } from "./tools/js-host-tool";
+export { createJsCatalogTool, loadJsHandlerModule, createWorkspaceApi } from "./tools/js-host-tool";
 /** @deprecated import from @crusbro/agent-os/cluster or ./agent */
 export * from "./runtime";
