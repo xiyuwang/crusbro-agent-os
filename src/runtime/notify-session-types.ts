@@ -1,8 +1,8 @@
 import type { AgentTemplateRegistry, ModelProvider, SandboxFactory, Store } from "../engine";
 
 /**
- * Host adapter contract for extracting execute-notify from media HTTP into OS.
- * Media backend implements platform I/O; OS owns agent loop + orchestration gates.
+ * Host adapter contract for execute-notify. Any host implements I/O;
+ * OS owns the agent loop and orchestration gates.
  */
 export type NotifySessionInput = {
   notifyId: string;
